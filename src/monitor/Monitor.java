@@ -2,6 +2,7 @@ package monitor;
 
 import cargarregistros.CargarRegistros;
 import cargarsintomas.CargarSintomas;
+import diagnosticos.DiagnosticoSimple;
 
 public class Monitor {
     private Sintomas sintomas;
@@ -12,15 +13,15 @@ public class Monitor {
 
     public Monitor() {
         CargarSintomas cargarSintomas = new CargarSintomas();
-        sintomas = cargarSintomas.getSintomas();
-        //this.funcion = new DiagnosticoSimple(this.sintomas);
-        //registros = new Registros();
-        //cargarRegistros = new CargarRegistros(sintomas);
+        this.sintomas = cargarSintomas.getSintomas();
+        this.funcion = new DiagnosticoSimple(this.sintomas);
+        this.registros = new Registros();
+        this.cargarRegistros = new CargarRegistros(this.sintomas);
     }
 
     public void monitorear() {
-        //Registro registro = this.cargarRegistros.getRegistro();
-        //this.registros.push(registro);
+        Registro registro = this.cargarRegistros.getRegistro();
+        this.registros.push(registro);
         this.resultadoDiagnostico = this.funcion.diagnostico(this.registros);
     }
 

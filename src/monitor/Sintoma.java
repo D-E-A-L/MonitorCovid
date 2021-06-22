@@ -21,8 +21,6 @@ public abstract class Sintoma implements Comparable<Sintoma>, Serializable {
 
     public String getNombre() {return nombre;}
 
-    public String getTipo() {return tipo;}
-
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

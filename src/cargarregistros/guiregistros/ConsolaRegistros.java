@@ -1,7 +1,6 @@
 package cargarregistros.guiregistros;
 
-import cargarsintomas.CargarSintomas;
-import cargarsintomas.GestorSintomas;
+import cargarregistros.GestorRegistros;
 import monitor.Sintomas;
 
 import java.util.ArrayList;
@@ -10,36 +9,39 @@ import java.util.Scanner;
 
 public class ConsolaRegistros {
 
-    private Sintomas sintomas;
-
     private final OperacionRegisro OPR;
-    private final GestorSintomas G_SINT;
-    private final CargarSintomas C_SINT;
 
-    private List<List<Object>> reg;
-    private List<List<String>> listReg;
+    private List<List<String>> lsintReg;
 
-    public ConsolaRegistros(String rsint){
-        OPR = new OperacionRegisro(rsint);
-        G_SINT = new GestorSintomas(rsint);
-        C_SINT = new CargarSintomas();
-        sintomas = new Sintomas();
-        listReg = new ArrayList<>();
-        reg = new ArrayList<>();
+    private final GestorRegistros GESTOR;
+
+    public ConsolaRegistros(String ruta_reg, Sintomas sintomas){
+        OPR = new OperacionRegisro(sintomas);
+        GESTOR = new GestorRegistros(ruta_reg);
+        lsintReg = new ArrayList<>();
+        registrarRegistros();
     }
 
+    private void registrarRegistros() {
+        System.out.println("Consola para registros");
+        if(OPR.tamSintomas()>0) {
+            mostrarOpciones();
+        }
+    }
 
-    public void realizarRegistros() {
+    private void mostrarOpciones() {
         Scanner sc = new Scanner(System.in);
-        int opc = 0;
-        boolean rbl = true;
-        while(rbl) {
+        int opc;
+        boolean rBool = true;
+        while(rBool) {
             System.out.println(OPR.mostOpc());
             opc = sc.nextInt();
-            if(opc < OPR.tamDic()) {
-
-            } else if (opc == OPR.tamDic()) {
-
+            if(opc < OPR.tamSintomas()) {
+                lsintReg.add(OPR.obtTipoSint(opc));
+            } else if (opc == OPR.tamSintomas()) {
+                GESTOR.guardarRegistro(lsintReg);
+                System.out.println("Se registro correctamente\n");
+                rBool = false;
             }
         }
     }

@@ -15,8 +15,4 @@ public class Registro implements Serializable {
     public Sintomas getSintomas() {
         return this.sintomas;
     }
-
-    public Date getFecha() {
-        return this.fecha;
-    }
 }

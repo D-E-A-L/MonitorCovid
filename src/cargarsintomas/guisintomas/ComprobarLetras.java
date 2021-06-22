@@ -1,7 +1,7 @@
 package cargarsintomas.guisintomas;
 
-import static extra.OperacionSimple.caracRep;
-import static extra.OperacionSimple.obtPor;
+import static cargarsintomas.extra.OperacionSimple.caracRep;
+import static cargarsintomas.extra.OperacionSimple.obtPor;
 
 public class ComprobarLetras {
 

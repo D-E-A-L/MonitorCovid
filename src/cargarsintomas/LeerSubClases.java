@@ -1,10 +1,13 @@
 package cargarsintomas;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
-import static extra.OperacionSimple.*;
+import static cargarsintomas.extra.OperacionSimple.*;
 
 public class LeerSubClases {
 
@@ -37,8 +40,8 @@ public class LeerSubClases {
 
     private List<String> listJavaClass(String cl) {
         List<String> resL = new ArrayList<>();
-        for (String scad : listArchCarp(new File(cl))) {
-            resL.add(obtPaquete(cl) + "." + obtNom(scad));
+        for (String scad : listArchCarp(cl)) {
+            resL.add(cl/*obtPaquete(cl)*/ + "." + obtNom(scad));
         }
         return resL;
     }
@@ -49,16 +52,21 @@ public class LeerSubClases {
         if(caracRep(nrut,'/') > 0) {
             nCad = nrut.replace('/',',');
             arr = nCad.split(",");
-            for(int i = 1; i < arr.length; i++) {
-                nCad = arr[i];
+            /*if (arr.length > 2) {
+                for(int i = 1; i < arr.length; i++) {
+                    nCad = arr[i];
+                }
+            } else */if(arr.length > 2) {
+                nCad = arr[arr.length -2];
             }
         }
         return nCad;
     }
 
-    private List<String> listArchCarp (File archCarp) {
+    private List<String> listArchCarp (String archCarp) {
+        File miArch = new File(obtRutaPath(archCarp));
+        String[] ee = miArch.list();
         List<String> listRes = new ArrayList<>();
-        String[] ee = archCarp.list();
         for(String cad : ee != null ? ee : new String[0]) {
             if(obtExt(cad).equals("class") || (obtExt(cad).equals("java"))) {
                 listRes.add(cad);
@@ -66,5 +74,4 @@ public class LeerSubClases {
         }
         return listRes;
     }
-
 }

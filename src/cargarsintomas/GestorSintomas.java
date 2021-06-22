@@ -9,17 +9,14 @@ import java.util.List;
 
 public class GestorSintomas {
 
-    private Sintomas sintomas;
-
-    private boolean guardado;
+    private final Sintomas SINTOMAS;
 
     private final String PAQUETE;
     private final String RUTA_ARCHIVO;
 
-    public GestorSintomas(String ruta) {
-        guardado = false;
-        sintomas = new Sintomas();
-        PAQUETE = "sintomas";
+    public GestorSintomas(String ruta, String rutah) {
+        SINTOMAS = new Sintomas();
+        PAQUETE = rutah;
         RUTA_ARCHIVO = ruta;
         hayArchivo();
     }
@@ -29,34 +26,24 @@ public class GestorSintomas {
         if (!archSintomas.exists()) {
             try {
                 archSintomas.createNewFile();
-            } catch (IOException i) {
+            } catch (IOException ignored) {
             }
         }
     }
 
-    public boolean estaGuardado() {return guardado;}
-
     private Sintomas obtenerDatos (String ruta) {
-        /*Sintomas sintomas = new Sintomas();
-        for(Object obj: leerDat(ruta)) {
-            Sintoma sintoma = (Sintoma) obj;
-            sintomas.add(sintoma);
-        } return sintomas;*/
         Sintomas sintomas = new Sintomas();
-        ObjectInputStream file = null;
-
+        ObjectInputStream arch;
         try {
-            file = new ObjectInputStream(new FileInputStream(ruta));
-            sintomas = (Sintomas)file.readObject();
-            file.close();
-        } catch (Exception var4) {
+            arch = new ObjectInputStream(new FileInputStream(ruta));
+            sintomas = (Sintomas)arch.readObject();
+            arch.close();
+        } catch (Exception ignored) {
         }
-
         return sintomas;
     }
 
     public Sintomas getSintomasArchivo(){
-        //return sintomas;
         return obtenerDatos(RUTA_ARCHIVO);
     }
 
@@ -75,11 +62,10 @@ public class GestorSintomas {
             Class<?> cl = Class.forName(PAQUETE + "." + tipo);
             Constructor<?> constructor = cl.getConstructor(String.class);
             sintoma = (Sintoma)constructor.newInstance(nombreSintoma);
-            sintomas.add(sintoma);
+            SINTOMAS.add(sintoma);
             salida = new ObjectOutputStream(new FileOutputStream(RUTA_ARCHIVO));
-            salida.writeObject(sintomas);
+            salida.writeObject(SINTOMAS);
             salida.close();
-            guardado = true;
         } catch (Exception e) {
             e.printStackTrace();
         }

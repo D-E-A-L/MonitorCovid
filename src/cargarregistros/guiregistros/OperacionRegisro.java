@@ -1,69 +1,53 @@
 package cargarregistros.guiregistros;
 
-import cargarsintomas.CargarSintomas;
-import cargarsintomas.GestorSintomas;
-import cargarsintomas.guisintomas.OperacionSintomas;
 import monitor.Sintomas;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
+import static cargarregistros.guiregistros.Convertidor.*;
+
 
 public class OperacionRegisro {
 
-    private Sintomas sintomas;
+    private final Map<Integer,String> EST_SINT;
+    private final Map<String,Boolean> ORD_SINT;
+    private final Map<String, String> GET_LIST;
 
-    private final GestorSintomas GES_SINT;
-    private final CargarSintomas CES_SINT;
-    private final OperacionSintomas OPSINT;
-
-    private List<List<String>> lSintomas;
-    private Map<Integer, String> ordSint;
-    private Map<String, Boolean> estSint;
-
-    public OperacionRegisro(String rutaSin) {
-        GES_SINT = new GestorSintomas(rutaSin);
-        CES_SINT = new CargarSintomas();
-        OPSINT = new OperacionSintomas();
-        sintomas = CES_SINT.getSintomas();
-        ordSint = aDiccOpciones(OPSINT.aDobleListaString(sintomas));
-        estSint = aDiccEstado(OPSINT.aDobleListaString(sintomas));
-    }
-
-    private Map<Integer, String> aDiccOpciones (List<List<String>> lSint) {
-        Map<Integer, String> dsint = new HashMap<>();
-        int index = 0;
-        for(List<String> ls: lSint) {
-            dsint.put(index, ls.get(ls.size()-1));
-            index++;
-        }
-        return dsint;
-    }
-
-    private Map<String, Boolean> aDiccEstado (List<List<String>> lsint) {
-        Map<String, Boolean> dest = new HashMap<>();
-        for(List<String> lst : lsint) {
-            dest.put(lst.get(lsint.size()-1), false);
-        }
-        return dest;
-    }
-
-    public int tamDic() {
-        return ordSint.size();
+    public OperacionRegisro(Sintomas sintomas) {
+        List<List<String>>  listSint = convertirSintAList(sintomas);
+        EST_SINT = aDiccOpciones(listSint);
+        ORD_SINT = aDiccEstado(listSint);
+        GET_LIST = diccList(listSint);
     }
 
     public String mostOpc(){
-        String cad = "";
-        for(int i = 0; i < estSint.size(); i++) {
-            if(estSint.get(ordSint.get(i)) == false) {
-                cad = cad + i + ".- " + ordSint.get(i)+ "; ";
-                if(i % 5 == 0 && i > 0) {
-                    cad = cad + "\n";
+        StringBuilder cad = new StringBuilder();
+        for(int i = 0; i < EST_SINT.size(); i++) {
+            if(!ORD_SINT.get(EST_SINT.get(i))) {
+                cad.append(i).append(".- ").append(EST_SINT.get(i)).append("; ");
+                if(i % 5 == 0) {
+                    cad.append("\n");
                 }
             }
-        } cad = cad + ordSint.size() + ".- SALIR Y GUARDAR CAMBIOS";
-        return cad;
+        } return cad.toString() + ORD_SINT.size() + ".- SALIR Y GUARDAR CAMBIOS";
+    }
+
+    public void actDicEst(String cad) {
+        ORD_SINT.put(cad,true);
+    }
+
+    public int tamSintomas() {return EST_SINT.size();}
+
+    public List<String> obtTipoSint(int opc) {
+        List<String> lsint = new ArrayList<>();
+        lsint.add(GET_LIST.get(obtSint(opc)));
+        lsint.add(obtSint(opc));
+        actDicEst(obtSint(opc));
+        return lsint;
+    }
+
+    private String obtSint(int opc) {
+        return EST_SINT.get(opc);
     }
 
 }

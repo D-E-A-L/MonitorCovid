@@ -3,34 +3,15 @@ package cargarsintomas.guisintomas;
 import monitor.Sintoma;
 import monitor.Sintomas;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static extra.OperacionMedia.actDobleListDatos;
-import static extra.OperacionSimple.obtExt;
+import static cargarsintomas.extra.OperacionMedia.actDobleListDatos;
+import static cargarsintomas.extra.OperacionSimple.obtExt;
 
 public class OperacionSintomas {
 
     public OperacionSintomas() {
-    }
-
-    public Sintomas regSintomas(List<List<String>> ac) {
-        Sintomas sintomas = new Sintomas();
-        for (List<String> lc : ac) {
-            for(int i = 0; i < ac.size(); i++) {
-                try {
-                    Class<?> nClass = Class.forName("sintomas."+ lc.get(0));
-                    Constructor<?> constructor = nClass.getConstructor(String.class);
-                    Sintoma sintoma = (Sintoma) (constructor.newInstance(new Object[]{lc.get(1)}));
-                    sintomas.add(sintoma);
-                } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return sintomas;
     }
 
     public List<List<String>> aDobleListaString(Sintomas sintomas) {

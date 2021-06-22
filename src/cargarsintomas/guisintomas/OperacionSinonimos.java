@@ -1,6 +1,6 @@
 package cargarsintomas.guisintomas;
 
-import bd.LeerBD;
+import cargarsintomas.bd.LeerBD;
 
 import java.util.List;
 
@@ -10,14 +10,12 @@ public class OperacionSinonimos {
 
     private final ComprobarLetras COMPL;
     private final ComprobarSinonimos COMPS;
-    private final String RUTA_SINONIMO;
 
     public OperacionSinonimos(String ruta){
-        RUTA_SINONIMO = ruta;
         LeerBD LEERBD = new LeerBD();
         SINONIMOS = LEERBD.Leer(ruta);
         COMPL = new ComprobarLetras();
-        COMPS =new ComprobarSinonimos(ruta);
+        COMPS = new ComprobarSinonimos(ruta);
     }
 
 

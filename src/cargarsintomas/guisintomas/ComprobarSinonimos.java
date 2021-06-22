@@ -1,6 +1,6 @@
 package cargarsintomas.guisintomas;
 
-import bd.LeerBD;
+import cargarsintomas.bd.LeerBD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,9 @@ public class ComprobarSinonimos {
 
     private final List<List<String>> SINONIMOS;
 
-    private final LeerBD LEER;
-    private final ComprobarLetras COMPL;
-
     public ComprobarSinonimos(String ruta){
-        LEER = new LeerBD();
-        COMPL = new ComprobarLetras();
-        SINONIMOS = LEER.Leer(ruta);
+        LeerBD leer = new LeerBD();
+        SINONIMOS = leer.Leer(ruta);
     }
 
     public boolean empatarSin(String sintoma) {

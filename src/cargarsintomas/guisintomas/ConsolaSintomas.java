@@ -4,62 +4,56 @@ import cargarsintomas.GestorSintomas;
 import cargarsintomas.LeerSubClases;
 import monitor.Sintoma;
 import monitor.Sintomas;
-import bd.LeerBD;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static extra.OperacionMedia.*;
-import static extra.OperacionSimple.mostListDatos;
-import static extra.OperacionSimple.obtExt;
+import static cargarsintomas.extra.OperacionMedia.*;
+import static cargarsintomas.extra.OperacionSimple.mostListDatos;
+import static cargarsintomas.extra.OperacionSimple.obtExt;
 
 public class ConsolaSintomas {
 
-    private Sintomas sintomas;
+    private final Sintomas SINTOMAS;
     private final OperacionSintomas OPSINT;
     private final OperacionSinonimos OPALT;
-    private final LeerBD leerBD;
     private final ValidarEntrada CTRENT;
     private final GestorSintomas GESTOR_SINTOMAS;
 
     private final List<String> LISTAHIJOS;
     private final Map<Integer,String> DICCLISTHIJOS;
 
-    private final String RUTA_SINONIMOS;
-    private final String RUTA_SINTOMAS;
-    private final String RUTA_HIJOS;
-
     private List<List<String>> dobleListSint;
+    private boolean rbool;
 
     public ConsolaSintomas(String rSint, String rSino, String rHijos){
-        RUTA_SINONIMOS = rSino;
-        RUTA_SINTOMAS = rSint;
-        RUTA_HIJOS = rHijos;
-        GESTOR_SINTOMAS = new GestorSintomas(RUTA_SINTOMAS);
-        OPALT = new OperacionSinonimos(RUTA_SINONIMOS);
+        GESTOR_SINTOMAS = new GestorSintomas(rSint,rHijos);
+        OPALT = new OperacionSinonimos(rSino);
         CTRENT = new ValidarEntrada();
         OPSINT = new OperacionSintomas();
-        leerBD = new LeerBD();
         LeerSubClases LESC = new LeerSubClases();
-        sintomas = GESTOR_SINTOMAS.getSintomasArchivo();
-        LISTAHIJOS = LESC.listarHijos(RUTA_HIJOS, Sintoma.class);
+        SINTOMAS = GESTOR_SINTOMAS.getSintomasArchivo();
+        LISTAHIJOS = LESC.listarHijos(rHijos, Sintoma.class);
         DICCLISTHIJOS = dicIntString(LISTAHIJOS);
-        dobleListSint = OPSINT.aDobleListaString(sintomas);
+        dobleListSint = OPSINT.aDobleListaString(SINTOMAS);
+        rbool = true;
+        mostrarTipoSint();
     }
 
-    public void mostrarTipoSint() {
+    private void mostrarTipoSint() {
         Scanner sc = new Scanner(System.in);
         int n;
         System.out.println(mostOpLista(LISTAHIJOS));
-        while (true) {
+        while (rbool) {
             n = sc.nextInt();
             if ( n < DICCLISTHIJOS.size()) {
                 registrar(DICCLISTHIJOS.get(n));
             } else if (n == DICCLISTHIJOS.size()) {
-                registrarSintoma(/*dobleListSint*/);
+                registrarSintoma();
                 System.out.println("Gracias por confiar en nosostros");
-                System.exit(0);
+                rbool = false;
+                //System.exit(0);
             }
         }
     }
@@ -86,23 +80,24 @@ public class ConsolaSintomas {
         Scanner sc = new Scanner(System.in);
         System.out.println("Seguir registrando sintomas: 0.- Si; 1.- No (Salir y guardar)");
         int a = sc.nextInt();
-        switch (a) {
-            case 0 -> mostrarTipoSint();
-            case 1 -> {
-                registrarSintoma();
-                System.exit(0);
+        while(rbool) {
+            switch (a) {
+                case 0 -> mostrarTipoSint();
+                case 1 -> {
+                    registrarSintoma();
+                    rbool = false;
+                }
             }
         }
     }
 
     public void registrarSintoma() {
-        List<List<String>> nlist = OPSINT.aDobleListaString(sintomas);
+        List<List<String>> nlist = OPSINT.aDobleListaString(SINTOMAS);
         dobleListSint = noRepetido(nlist,dobleListSint);
-        Sintomas sin1 = OPSINT.regSintomas(dobleListSint);
-        for(Sintoma s : sin1) {
+        GESTOR_SINTOMAS.escribir(dobleListSint);
+        for(Sintoma s : GESTOR_SINTOMAS.getSintomasArchivo()) {
             System.out.println(obtExt(""+s.getClass())+"-->"+s.getNombre());
         }
-        GESTOR_SINTOMAS.escribir(dobleListSint);
     }
 
 }
