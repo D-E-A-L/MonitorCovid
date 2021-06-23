@@ -74,10 +74,16 @@ public final class OperacionSimple {
 
     public static String encRuta (String ruta, String aBuscar) {
         String res = "";
-        for(String cad: listArchCarp(ruta)) {
-            if(cad.contains(aBuscar)) {
-                res = cad;
+        if(listArchCarp(ruta).size()> 0) {
+            for(String cad: listArchCarp(ruta)) {
+                if(cad.contains(aBuscar)) {
+                    res = cad;
+                } else {
+                    res = obtRutaPath(ruta) + "/" + aBuscar;
+                }
             }
+        } else {
+            res = obtRutaPath(ruta) + "/" + aBuscar;
         }
         return res;
     }

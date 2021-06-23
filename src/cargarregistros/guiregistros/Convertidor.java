@@ -14,8 +14,10 @@ public final class Convertidor {
 
     public static  Map<String, Boolean> aDiccEstado (List<List<String>> lsint) {
         Map<String, Boolean> dest = new HashMap<>();
-        for(List<String> lst : lsint) {
-            dest.put(lst.get(lsint.size()-1), false);
+        if(lsint.size() >= 0) {
+            for(List<String> lst : lsint) {
+                dest.put(lst.get(lst.size()-1), false);
+            }
         }
         return dest;
     }
