@@ -44,7 +44,8 @@ public final class Convertidor {
         for(Sintoma sint: sintomas){
             List<String> lsint = new ArrayList<>();
             lsint.add(obtExt(String.valueOf(sint.getClass())));
-            lsint.add(sint.getNombre());
+            //lsint.add(sint.getNombre());
+            lsint.add(sint.toString());
             lsn.add(lsint);
         }
         return lsn;

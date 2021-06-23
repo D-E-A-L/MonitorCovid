@@ -96,7 +96,8 @@ public class ConsolaSintomas {
         dobleListSint = noRepetido(nlist,dobleListSint);
         GESTOR_SINTOMAS.escribir(dobleListSint);
         for(Sintoma s : GESTOR_SINTOMAS.getSintomasArchivo()) {
-            System.out.println(obtExt(""+s.getClass())+"-->"+s.getNombre());
+            //System.out.println(obtExt(""+s.getClass())+"-->"+s.getNombre());
+            System.out.println(obtExt(""+s.getClass())+"-->"+s.toString());
         }
     }
 

@@ -6,20 +6,12 @@ import java.util.Objects;
 public abstract class Sintoma implements Comparable<Sintoma>, Serializable {
 
     private String nombre;
-    private String tipo;
 
     public Sintoma(String nombre) {
         this.nombre = nombre;
     }
 
-    public Sintoma(String tipo, String nombre) {
-        this.nombre = nombre;
-        this.tipo = tipo;
-    }
-
     public abstract int peso();
-
-    public String getNombre() {return nombre;}
 
     public boolean equals(Object obj) {
         if (this == obj) {

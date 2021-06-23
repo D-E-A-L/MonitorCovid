@@ -19,7 +19,8 @@ public class OperacionSintomas {
         for(Sintoma sintoma: sintomas) {
             List<String> nList = new ArrayList<>();
             nList.add(obtExt(String.valueOf(sintoma.getClass())));
-            nList.add(sintoma.getNombre());
+            //nList.add(sintoma.getNombre());
+            nList.add(sintoma.toString());
             dList.add(nList);
         }
         return dList;
