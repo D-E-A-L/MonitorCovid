@@ -42,7 +42,9 @@ public class ConsolaRegistros {
                     OPR.restablecer();
                     mostrarOpciones();
                 }
-                case 1 -> rb = false;
+                case 1 -> {
+                    rb = false;
+                }
             }
         }
     }

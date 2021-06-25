@@ -3,6 +3,7 @@ package cargarregistros;
 import cargarregistros.guiregistros.ConsolaRegistros;
 import monitor.Registro;
 import monitor.Registros;
+import monitor.Sintoma;
 import monitor.Sintomas;
 
 import static cargarregistros.EncontrarRuta.encRuta;
@@ -12,8 +13,8 @@ public class CargarRegistros {
     private final String RUTA_REG;
 
     private final GestorRegistros GESTOR;
-    private final Registros REGISTROS;
-    private final Sintomas SINTOMAS;
+    private Registros REGISTROS;
+    private Sintomas SINTOMAS;
 
     public CargarRegistros(Sintomas sints) {
         SINTOMAS = sints;
@@ -24,7 +25,7 @@ public class CargarRegistros {
     }
 
     private void cargarRegistro() {
-        new ConsolaRegistros(RUTA_REG, SINTOMAS);
+            new ConsolaRegistros(RUTA_REG, SINTOMAS);
     }
 
     public Registro getRegistro() {

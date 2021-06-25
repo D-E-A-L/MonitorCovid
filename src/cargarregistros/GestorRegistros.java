@@ -47,7 +47,12 @@ public class GestorRegistros {
 
     public void guardarRegistro(List<List<String>> lSintomas) {
         Sintomas sintomas = devolverSints("sintomas",lSintomas);
-        Registro registro = new Registro(new Date(), sintomas);
+        Registro registro = null;
+        if(sintomas != null) {
+            registro = new Registro(new Date(), sintomas);
+        } else {
+            registro = new Registro(new Date(), new Sintomas());
+        }
         Registros registros = this.getRegistrosArchivo();
         ObjectOutputStream file;
         try {

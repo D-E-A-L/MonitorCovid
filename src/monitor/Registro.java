@@ -16,5 +16,5 @@ public class Registro implements Serializable {
         return this.sintomas;
     }
     
-    public Date gegtFecha() {return this.fecha;}
+    public Date getFecha() {return this.fecha;}
 }
