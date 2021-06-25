@@ -10,30 +10,32 @@ import static cargarregistros.guiregistros.Convertidor.*;
 public class OperacionRegisro {
 
     private final Map<Integer,String> ORD_EST;
-    private final Map<String,Boolean> EST_SINT;
     private final Map<String, String> GET_LIST;
+    private final List<List<String>> LIST_SINT;
+
+    private  Map<String,Boolean> est_sint;
 
     public OperacionRegisro(Sintomas sintomas) {
-        List<List<String>>  listSint = convertirSintAList(sintomas);
-        ORD_EST = aDiccOpciones(listSint);
-        EST_SINT = aDiccEstado(listSint);
-        GET_LIST = diccList(listSint);
+        LIST_SINT = convertirSintAList(sintomas);
+        ORD_EST = aDiccOpciones(LIST_SINT);
+        est_sint = aDiccEstado(LIST_SINT);
+        GET_LIST = diccList(LIST_SINT);
     }
 
     public String mostOpc(){
         StringBuilder cad = new StringBuilder();
         for(int i = 0; i < ORD_EST.size(); i++) {
-            if(!EST_SINT.get(ORD_EST.get(i))) {
+            if(!est_sint.get(ORD_EST.get(i))) {
                 cad.append(i).append(".- ").append(ORD_EST.get(i)).append("; ");
-                if(i % 5 == 0) {
+                if(i % 5 == 0 && i > 0) {
                     cad.append("\n");
                 }
             }
-        } return cad.toString() + EST_SINT.size() + ".- SALIR Y GUARDAR CAMBIOS";
+        } return cad.toString() + "\n"+ est_sint.size() + ".- REGISTRAR";
     }
 
     public void actDicEst(String cad) {
-        EST_SINT.put(cad,true);
+        est_sint.put(cad,true);
     }
 
     public int tamSintomas() {return ORD_EST.size();}
@@ -44,6 +46,10 @@ public class OperacionRegisro {
         lsint.add(obtSint(opc));
         actDicEst(obtSint(opc));
         return lsint;
+    }
+
+    public void restablecer(){
+        est_sint = aDiccEstado(LIST_SINT);
     }
 
     private String obtSint(int opc) {

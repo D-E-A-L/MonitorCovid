@@ -25,7 +25,25 @@ public class ConsolaRegistros {
     private void registrarRegistros() {
         System.out.println("Consola para registros");
         if(OPR.tamSintomas()>0) {
-            mostrarOpciones();
+            //mostrarOpciones();
+            realizarReg();
+        }
+    }
+
+    private void realizarReg (){
+        Scanner sc = new Scanner(System.in);
+        int opc;
+        boolean rb = true;
+        while(rb) {
+            System.out.println("0.- Realizar registro; 1.- Salir");
+            opc = sc.nextInt();
+            switch (opc) {
+                case 0 -> {
+                    OPR.restablecer();
+                    mostrarOpciones();
+                }
+                case 1 -> rb = false;
+            }
         }
     }
 

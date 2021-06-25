@@ -25,6 +25,7 @@ public class ConsolaSintomas {
     private final Map<Integer,String> DICCLISTHIJOS;
 
     private List<List<String>> dobleListSint;
+    private List<List<String>> dListSinonimos;
     private boolean rbool;
 
     public ConsolaSintomas(String rSint, String rSino, String rHijos){
@@ -38,6 +39,7 @@ public class ConsolaSintomas {
         DICCLISTHIJOS = dicIntString(LISTAHIJOS);
         dobleListSint = OPSINT.aDobleListaString(SINTOMAS);
         rbool = true;
+        dListSinonimos = OPALT.getSinonimos();
         mostrarTipoSint();
     }
 
@@ -100,5 +102,4 @@ public class ConsolaSintomas {
             System.out.println(obtExt(""+s.getClass())+"-->"+s.toString());
         }
     }
-
 }

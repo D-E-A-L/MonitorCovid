@@ -10,6 +10,19 @@ import java.util.Enumeration;
 import java.util.List;
 
 public final class OperacionSimple {
+    
+    public static int seRepite(List<List<String>> listd, List<String> listBuscar) {
+        int res = 0;
+        for(List<String> lsint: listd) {
+            if(lsint.size() == listBuscar.size()) {
+                for(int i = 0; i < lsint.size(); i++) {
+                    if(lsint.get(i).equals(listBuscar.get(i))) {
+                        res++;
+                    }
+                }
+            }
+        } return res;
+    }
 
     public static double obtPor(int var, int tot) {
         DecimalFormat dfrmt = new DecimalFormat("#.##");
@@ -85,7 +98,7 @@ public final class OperacionSimple {
         } else {
             res = obtRutaPath(ruta) + "/" + aBuscar;
         }
-        return res;
+        return res.replaceAll(" ","%20");
     }
 
     private static List<String> listArchCarp (String archCarp) {

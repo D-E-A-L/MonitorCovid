@@ -15,9 +15,9 @@ public class GestorSintomas {
     private final String RUTA_ARCHIVO;
 
     public GestorSintomas(String ruta, String rutah) {
-        SINTOMAS = new Sintomas();
         PAQUETE = rutah;
         RUTA_ARCHIVO = ruta;
+        SINTOMAS = obtenerDatos(RUTA_ARCHIVO);
         hayArchivo();
     }
 

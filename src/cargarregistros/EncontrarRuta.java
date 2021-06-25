@@ -25,7 +25,7 @@ public final class EncontrarRuta {
         } else {
             res = obtRutaPath(ruta) + "/" + aBuscar;
         }
-        return res;
+        return res.replaceAll(" ","%20");
     }
 
     private static List<String> listArchCarp (String archCarp) {
