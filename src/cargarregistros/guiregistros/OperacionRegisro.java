@@ -24,14 +24,17 @@ public class OperacionRegisro {
 
     public String mostOpc(){
         StringBuilder cad = new StringBuilder();
-        for(int i = 0; i < ORD_EST.size(); i++) {
-            if(!est_sint.get(ORD_EST.get(i))) {
-                cad.append(i).append(".- ").append(ORD_EST.get(i)).append("; ");
-                if(i % 5 == 0 && i > 0) {
-                    cad.append("\n");
+        if(ORD_EST != null) {
+            for(int i = 0; i < ORD_EST.size(); i++) {
+                if(!est_sint.get(ORD_EST.get(i))) {
+                    cad.append(i).append(".- ").append(ORD_EST.get(i)).append("; ");
+                    if(i % 5 == 0 && i > 0) {
+                        cad.append("\n");
+                    }
                 }
             }
-        } return cad.toString() + "\n"+ est_sint.size() + ".- REGISTRAR";
+            cad.append( "\n"+ est_sint.size() + ".- REGISTRAR");
+        } return cad.toString();
     }
 
     public void actDicEst(String cad) {

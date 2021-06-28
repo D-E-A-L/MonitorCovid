@@ -3,8 +3,9 @@ package cargarregistros;
 import cargarregistros.guiregistros.ConsolaRegistros;
 import monitor.Registro;
 import monitor.Registros;
-import monitor.Sintoma;
 import monitor.Sintomas;
+
+import java.util.Date;
 
 import static cargarregistros.EncontrarRuta.encRuta;
 
@@ -13,14 +14,14 @@ public class CargarRegistros {
     private final String RUTA_REG;
 
     private final GestorRegistros GESTOR;
-    private Registros REGISTROS;
-    private Sintomas SINTOMAS;
+    private Registros registros;
+    private final Sintomas SINTOMAS;
 
     public CargarRegistros(Sintomas sints) {
         SINTOMAS = sints;
         RUTA_REG = encRuta("cargarregistros","registros.dat");
         GESTOR = new GestorRegistros(RUTA_REG);
-        REGISTROS = GESTOR.getRegistrosArchivo();
+        registros = GESTOR.getRegistrosArchivo();
         cargarRegistro();
     }
 
@@ -29,6 +30,9 @@ public class CargarRegistros {
     }
 
     public Registro getRegistro() {
-        return GESTOR.obtUltRegistro();
+        if(registros.isEmpty()){
+            return new Registro(new Date(), new Sintomas());
+        }
+        return registros.peek();
     }
 }
