@@ -33,7 +33,7 @@ public class OperacionRegisro {
                     }
                 }
             }
-            cad.append( "\n"+ est_sint.size() + ".- REGISTRAR");
+            cad.append("\n").append(est_sint.size()).append(".- REGISTRAR");
         } return cad.toString();
     }
 

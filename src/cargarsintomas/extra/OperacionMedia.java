@@ -1,8 +1,5 @@
 package cargarsintomas.extra;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public final class OperacionMedia {
@@ -57,22 +54,4 @@ public final class OperacionMedia {
         return ndList;
     }
 
-    public static String convDateString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-        return dateFormat.format(date);
-    }
-
-    public static Date convStringDateSinHMS(String string) {
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("yyyy/MM/dd").parse(string);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } return date;
-    }
-
-    public static boolean esFecha(String cFecha) {
-        cFecha = cFecha.replace(" ","");
-        return (Arrays.asList(cFecha.split(":"))).size() > 2;
-    }
 }

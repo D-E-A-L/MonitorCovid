@@ -13,15 +13,14 @@ public class CargarRegistros {
 
     private final String RUTA_REG;
 
-    private final GestorRegistros GESTOR;
-    private Registros registros;
+    private final Registros REGISTROS;
     private final Sintomas SINTOMAS;
 
     public CargarRegistros(Sintomas sints) {
         SINTOMAS = sints;
         RUTA_REG = encRuta("cargarregistros","registros.dat");
-        GESTOR = new GestorRegistros(RUTA_REG);
-        registros = GESTOR.getRegistrosArchivo();
+        GestorRegistros gestor = new GestorRegistros(RUTA_REG);
+        REGISTROS = gestor.getRegistrosArchivo();
         cargarRegistro();
     }
 
@@ -30,9 +29,6 @@ public class CargarRegistros {
     }
 
     public Registro getRegistro() {
-        if(registros.isEmpty()){
-            return new Registro(new Date(), new Sintomas());
-        }
-        return registros.peek();
+        return (REGISTROS.isEmpty())? new Registro(new Date(), new Sintomas()) : REGISTROS.peek();
     }
 }

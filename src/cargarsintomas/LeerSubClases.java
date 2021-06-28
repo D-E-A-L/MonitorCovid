@@ -1,10 +1,7 @@
 package cargarsintomas;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import static cargarsintomas.extra.OperacionSimple.*;
@@ -44,23 +41,6 @@ public class LeerSubClases {
             resL.add(cl/*obtPaquete(cl)*/ + "." + obtNom(scad));
         }
         return resL;
-    }
-
-    private String obtPaquete (String nrut) {
-        String nCad = "";
-        String[] arr;
-        if(caracRep(nrut,'/') > 0) {
-            nCad = nrut.replace('/',',');
-            arr = nCad.split(",");
-            /*if (arr.length > 2) {
-                for(int i = 1; i < arr.length; i++) {
-                    nCad = arr[i];
-                }
-            } else */if(arr.length > 2) {
-                nCad = arr[arr.length -2];
-            }
-        }
-        return nCad;
     }
 
     private List<String> listArchCarp (String archCarp) {

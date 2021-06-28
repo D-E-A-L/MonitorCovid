@@ -32,6 +32,7 @@ public final class EncontrarRuta {
         File miArch = new File(obtRutaPath(archCarp));
         String[] ee = miArch.list();
         List<String> listRes = new ArrayList<>();
+        assert ee != null;
         for(String cad : separarExt(ee) != null ? separarExt(ee) : new String[0]) {
             if(obtExt(cad).equals("csv") || (obtExt(cad).equals("dat"))) {
                 listRes.add(obtRutaPath(archCarp+"/"+cad));

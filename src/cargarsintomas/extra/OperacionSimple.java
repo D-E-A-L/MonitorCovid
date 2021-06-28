@@ -10,23 +10,10 @@ import java.util.Enumeration;
 import java.util.List;
 
 public final class OperacionSimple {
-    
-    public static int seRepite(List<List<String>> listd, List<String> listBuscar) {
-        int res = 0;
-        for(List<String> lsint: listd) {
-            if(lsint.size() == listBuscar.size()) {
-                for(int i = 0; i < lsint.size(); i++) {
-                    if(lsint.get(i).equals(listBuscar.get(i))) {
-                        res++;
-                    }
-                }
-            }
-        } return res;
-    }
 
     public static double obtPor(int var, int tot) {
         DecimalFormat dfrmt = new DecimalFormat("#.##");
-        return Double.parseDouble(dfrmt.format((100 * var) / tot));
+        return Double.parseDouble(dfrmt.format((100L * var) / tot));
     }
 
     public static String obtExt(String rutaAr){
@@ -61,13 +48,11 @@ public final class OperacionSimple {
         StringBuilder rdatos = new StringBuilder();
         for (List<String> d: datos) {
             for(int i = 0; i < d.size(); i++) {
-                if(i < d.size()) {
-                    if( i < d.size() -1 ) {
-                        rdatos.append(d.get(i)+"-->");
-                    }
-                    else if(i == d.size() -1) {
-                        rdatos.append(d.get(i)+"\n");
-                    }
+                if( i < d.size() -1 ) {
+                    rdatos.append(d.get(i)).append("-->");
+                }
+                else if(i == d.size() -1) {
+                    rdatos.append(d.get(i)).append("\n");
                 }
             }
         }
@@ -105,7 +90,9 @@ public final class OperacionSimple {
         File miArch = new File(obtRutaPath(archCarp));
         String[] ee = miArch.list();
         List<String> listRes = new ArrayList<>();
-        for(String cad : separarExt(ee) != null ? separarExt(ee) : new String[0]) {
+        assert ee != null;
+        separarExt(ee);
+        for(String cad : separarExt(ee)) {
             if(obtExt(cad).equals("csv") || (obtExt(cad).equals("dat"))) {
                 listRes.add(obtRutaPath(archCarp+"/"+cad));
             }

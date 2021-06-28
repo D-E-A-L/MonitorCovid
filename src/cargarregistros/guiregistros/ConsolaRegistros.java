@@ -11,21 +11,20 @@ public class ConsolaRegistros {
 
     private final OperacionRegisro OPR;
 
-    private List<List<String>> lsintReg;
+    private final List<List<String>> LISST_SINT_REG;
 
     private final GestorRegistros GESTOR;
 
     public ConsolaRegistros(String ruta_reg, Sintomas sintomas){
         OPR = new OperacionRegisro(sintomas);
         GESTOR = new GestorRegistros(ruta_reg);
-        lsintReg = new ArrayList<>();
+        LISST_SINT_REG = new ArrayList<>();
         registrarRegistros();
     }
 
     private void registrarRegistros() {
         System.out.println("Consola para registros");
-        if(OPR.tamSintomas()>0) {
-            //mostrarOpciones();
+        if(OPR.tamSintomas() > 0) {
             realizarReg();
         }
     }
@@ -42,9 +41,7 @@ public class ConsolaRegistros {
                     OPR.restablecer();
                     mostrarOpciones();
                 }
-                case 1 -> {
-                    rb = false;
-                }
+                case 1 -> rb = false;
             }
         }
     }
@@ -57,9 +54,9 @@ public class ConsolaRegistros {
             System.out.println(OPR.mostOpc());
             opc = sc.nextInt();
             if(opc < OPR.tamSintomas()) {
-                lsintReg.add(OPR.obtTipoSint(opc));
+                LISST_SINT_REG.add(OPR.obtTipoSint(opc));
             } else if (opc == OPR.tamSintomas()) {
-                GESTOR.guardarRegistro(lsintReg);
+                GESTOR.guardarRegistro(LISST_SINT_REG);
                 System.out.println("Se registro correctamente\n");
                 rBool = false;
             }

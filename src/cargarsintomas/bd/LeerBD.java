@@ -16,7 +16,7 @@ public class LeerBD{
         List<List<String>> list = new ArrayList<>();
         switch (obtExt(rArchivo)) {
             case "csv" -> list = leerCSV(rArchivo);
-            case "json" -> list = leerJASON(rArchivo);
+            case "json" -> list = leerJASON();
         }
         return list;
     }
