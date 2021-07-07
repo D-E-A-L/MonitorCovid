@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static cargarsintomas.extra.OperacionMedia.*;
-import static cargarsintomas.extra.OperacionSimple.mostListDatos;
-import static cargarsintomas.extra.OperacionSimple.obtExt;
+import static cargarsintomas.utilitarios.OperacionMedia.*;
+import static cargarsintomas.utilitarios.OperacionSimple.*;
 
 public class ConsolaSintomas {
 
@@ -46,6 +45,7 @@ public class ConsolaSintomas {
     private void mostrarTipoSint() {
         Scanner sc = new Scanner(System.in);
         int n;
+        System.out.println(mostSintReg(SINTOMAS));
         System.out.println(mostOpLista(LISTAHIJOS));
         while (rbool) {
             n = sc.nextInt();
@@ -55,7 +55,6 @@ public class ConsolaSintomas {
                 registrarSintoma();
                 System.out.println("Gracias por confiar en nosostros");
                 rbool = false;
-                //System.exit(0);
             }
         }
     }
@@ -97,9 +96,9 @@ public class ConsolaSintomas {
         List<List<String>> nlist = OPSINT.aDobleListaString(SINTOMAS);
         dobleListSint = noRepetido(nlist,dobleListSint);
         GESTOR_SINTOMAS.escribir(dobleListSint);
-        for(Sintoma s : GESTOR_SINTOMAS.getSintomasArchivo()) {
-            //System.out.println(obtExt(""+s.getClass())+"-->"+s.getNombre());
+        System.out.println(mostSintReg(SINTOMAS));
+        /*for(Sintoma s : GESTOR_SINTOMAS.getSintomasArchivo()) {
             System.out.println(obtExt(""+s.getClass())+"-->"+s.toString());
-        }
+        }*/
     }
 }

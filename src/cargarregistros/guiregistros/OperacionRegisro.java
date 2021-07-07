@@ -1,5 +1,8 @@
 package cargarregistros.guiregistros;
 
+import monitor.Registro;
+import monitor.Registros;
+import monitor.Sintoma;
 import monitor.Sintomas;
 
 import java.util.*;
@@ -22,6 +25,30 @@ public class OperacionRegisro {
         GET_LIST = diccList(LIST_SINT);
     }
 
+    public String mostrarRegistros(Registros registros){
+        String res = "";
+        for(Registro registro: registros) {
+            if(res.equals("") || res.equals(null) ) {
+                res = registro.getFecha() +"-->"+ converStringSintomas(registro.getSintomas());
+            } else {
+                res = res + registro.getFecha() +"-->"+ converStringSintomas(registro.getSintomas());
+            }
+        }
+        return res;
+    }
+
+    private String converStringSintomas(Sintomas sintomas) {
+        String res = "";
+        for(Sintoma sintoma: sintomas) {
+            if(!res.equals("")){
+                res = res + "; "+sintoma.toString();
+            } else {
+                res = res + sintoma.toString();
+            }
+        } res = res + "\n";
+        return res;
+    }
+
     public String mostOpc(){
         StringBuilder cad = new StringBuilder();
         if(ORD_EST != null) {
@@ -36,6 +63,7 @@ public class OperacionRegisro {
             cad.append("\n").append(est_sint.size()).append(".- REGISTRAR");
         } return cad.toString();
     }
+
 
     public void actDicEst(String cad) {
         est_sint.put(cad,true);

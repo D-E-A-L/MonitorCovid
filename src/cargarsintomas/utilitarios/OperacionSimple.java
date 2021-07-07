@@ -1,13 +1,13 @@
-package cargarsintomas.extra;
+package cargarsintomas.utilitarios;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import monitor.Sintomas;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
+
+import static cargarsintomas.utilitarios.OperacionMedia.converSintListD;
 
 public final class OperacionSimple {
 
@@ -70,65 +70,20 @@ public final class OperacionSimple {
         return nList;
     }
 
-    public static String encRuta (String ruta, String aBuscar) {
-        String res = "";
-        if(listArchCarp(ruta).size()> 0) {
-            for(String cad: listArchCarp(ruta)) {
-                if(cad.contains(aBuscar)) {
-                    res = cad;
-                } else {
-                    res = obtRutaPath(ruta) + "/" + aBuscar;
+    public static String mostSintReg(Sintomas sintomas) {
+        List<List<String>> dlSint = converSintListD(sintomas);
+        StringBuilder strres = new StringBuilder();
+        if(!dlSint.equals(null)) {
+            for(int i = 0; i < dlSint.size(); i++) {
+                List<String> lsint = dlSint.get(i);
+                strres.append(lsint.get(0)).append(": ").append(lsint.get(1)).append("; ");
+                if( (i+1) % 3 == 0 && i > 0) {
+                    strres.append("\n");
                 }
             }
         } else {
-            res = obtRutaPath(ruta) + "/" + aBuscar;
+            strres = new StringBuilder();
         }
-        return res.replaceAll(" ","%20");
-    }
-
-    private static List<String> listArchCarp (String archCarp) {
-        File miArch = new File(obtRutaPath(archCarp));
-        String[] ee = miArch.list();
-        List<String> listRes = new ArrayList<>();
-        assert ee != null;
-        separarExt(ee);
-        for(String cad : separarExt(ee)) {
-            if(obtExt(cad).equals("csv") || (obtExt(cad).equals("dat"))) {
-                listRes.add(obtRutaPath(archCarp+"/"+cad));
-            }
-        }
-        return listRes;
-    }
-
-    private static String[] separarExt(String[] aux) {
-        List<String> lres = new ArrayList<>();
-        for (String c: aux) {
-            if(caracRep(c,'.')==1) {
-                lres.add(c);
-            }
-        }
-        return convertirList(lres);
-    }
-
-    private static String[] convertirList(List<String> list) {
-        String[] res = new String[list.size()];
-        for(int i = 0; i < list.size(); i++) {
-            res[i] = list.get(i);
-        }
-        return res;
-    }
-
-    public static String obtRutaPath (String ruta) {
-        String nruta = "";
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        assert classLoader != null;
-        try {
-            Enumeration resources = classLoader.getResources(ruta);
-            URL resource = (URL) resources.nextElement();
-            nruta = resource.getFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return nruta;
+        return strres.toString();
     }
 }

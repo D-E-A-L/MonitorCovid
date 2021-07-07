@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static cargarsintomas.extra.OperacionSimple.eliUltimo;
+import static cargarsintomas.utilitarios.OperacionSimple.eliUltimo;
 
 public class EscribirCSV {
 

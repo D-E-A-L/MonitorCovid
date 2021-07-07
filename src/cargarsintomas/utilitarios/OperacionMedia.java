@@ -1,6 +1,11 @@
-package cargarsintomas.extra;
+package cargarsintomas.utilitarios;
+
+import monitor.Sintoma;
+import monitor.Sintomas;
 
 import java.util.*;
+
+import static cargarsintomas.utilitarios.OperacionSimple.obtExt;
 
 public final class OperacionMedia {
 
@@ -52,6 +57,21 @@ public final class OperacionMedia {
             ndList = dList;
         }
         return ndList;
+    }
+
+    public static List<List<String>> converSintListD(Sintomas sintomas) {
+        List<List<String>> listRes = new ArrayList<>();
+        if(!sintomas.equals(null)) {
+            for(Sintoma sintoma : sintomas) {
+                List<String> nlist = new  ArrayList<>();
+                nlist.add(obtExt(String.valueOf(sintoma.getClass())));
+                nlist.add(sintoma.toString());
+                listRes.add(nlist);
+            }
+        } else {
+            listRes = null;
+        }
+        return listRes;
     }
 
 }

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cargarsintomas.extra.OperacionSimple.deArrayAList;
+import static cargarsintomas.utilitarios.OperacionSimple.deArrayAList;
 
 public final class LeerSCV {
 

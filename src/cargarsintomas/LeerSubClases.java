@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cargarsintomas.extra.OperacionSimple.*;
+import static cargarsintomas.utilitarios.EncontrarRutaSintomas.obtRutaPath;
+import static cargarsintomas.utilitarios.OperacionSimple.*;
 
 public class LeerSubClases {
 

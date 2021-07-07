@@ -1,6 +1,7 @@
 package cargarregistros.guiregistros;
 
 import cargarregistros.GestorRegistros;
+import monitor.Registros;
 import monitor.Sintomas;
 
 import java.util.ArrayList;
@@ -14,16 +15,19 @@ public class ConsolaRegistros {
     private final List<List<String>> LISST_SINT_REG;
 
     private final GestorRegistros GESTOR;
+    private final Registros REGS;
 
     public ConsolaRegistros(String ruta_reg, Sintomas sintomas){
         OPR = new OperacionRegisro(sintomas);
         GESTOR = new GestorRegistros(ruta_reg);
         LISST_SINT_REG = new ArrayList<>();
+        REGS = GESTOR.getRegistrosArchivo();
         registrarRegistros();
     }
 
     private void registrarRegistros() {
-        System.out.println("Consola para registros");
+        System.out.println("\nConsola para registros\n");
+        System.out.println(OPR.mostrarRegistros(REGS));
         if(OPR.tamSintomas() > 0) {
             realizarReg();
         }
@@ -58,6 +62,7 @@ public class ConsolaRegistros {
             } else if (opc == OPR.tamSintomas()) {
                 GESTOR.guardarRegistro(LISST_SINT_REG);
                 System.out.println("Se registro correctamente\n");
+                System.out.println(OPR.mostrarRegistros(REGS));
                 rBool = false;
             }
         }

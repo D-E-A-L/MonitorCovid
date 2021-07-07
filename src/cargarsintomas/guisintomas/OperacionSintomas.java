@@ -6,8 +6,8 @@ import monitor.Sintomas;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cargarsintomas.extra.OperacionMedia.actDobleListDatos;
-import static cargarsintomas.extra.OperacionSimple.obtExt;
+import static cargarsintomas.utilitarios.OperacionMedia.actDobleListDatos;
+import static cargarsintomas.utilitarios.OperacionSimple.obtExt;
 
 public class OperacionSintomas {
 

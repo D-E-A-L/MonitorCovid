@@ -3,7 +3,7 @@ package cargarsintomas;
 import cargarsintomas.guisintomas.ConsolaSintomas;
 import monitor.Sintomas;
 
-import static cargarsintomas.extra.OperacionSimple.encRuta;
+import static cargarsintomas.utilitarios.EncontrarRutaSintomas.encRuta;
 
 public class CargarSintomas {
 

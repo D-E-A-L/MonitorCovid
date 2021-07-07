@@ -5,7 +5,7 @@ import java.util.List;
 
 import static cargarsintomas.bd.LeerJASON.leerJASON;
 import static cargarsintomas.bd.LeerSCV.leerCSV;
-import static cargarsintomas.extra.OperacionSimple.obtExt;
+import static cargarsintomas.utilitarios.OperacionSimple.obtExt;
 
 public class LeerBD{
 

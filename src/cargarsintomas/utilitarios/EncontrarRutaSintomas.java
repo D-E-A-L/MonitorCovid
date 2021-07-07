@@ -1,4 +1,4 @@
-package cargarregistros;
+package cargarsintomas.utilitarios;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import static cargarregistros.guiregistros.Convertidor.obtExt;
-import static cargarregistros.guiregistros.Convertidor.caracRep;
+import static cargarsintomas.utilitarios.OperacionSimple.caracRep;
+import static cargarsintomas.utilitarios.OperacionSimple.obtExt;
 
-public final class EncontrarRuta {
+public final  class EncontrarRutaSintomas {
 
     private static final String SEPARADOR = System.getProperty("file.separator");
 
@@ -48,7 +48,7 @@ public final class EncontrarRuta {
     private static String[] separarExt(String[] aux) {
         List<String> lres = new ArrayList<>();
         for (String c: aux) {
-            if(caracRep(c)==1) {
+            if(caracRep(c,'.')==1) {
                 lres.add(c);
             }
         }

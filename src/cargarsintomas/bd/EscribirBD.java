@@ -2,7 +2,7 @@ package cargarsintomas.bd;
 
 import java.util.List;
 
-import static cargarsintomas.extra.OperacionSimple.obtExt;
+import static cargarsintomas.utilitarios.OperacionSimple.obtExt;
 
 public class EscribirBD {
 
