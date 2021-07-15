@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static cargarregistros.guiregistros.Convertidor.devolverSints;
+import static cargarregistros.utilitariosreg.Convertidor.devolverSints;
 
 public class GestorRegistros {
 

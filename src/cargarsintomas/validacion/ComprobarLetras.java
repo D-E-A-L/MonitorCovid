@@ -1,4 +1,6 @@
-package cargarsintomas.guisintomas;
+package cargarsintomas.validacion;
+
+import cargarsintomas.validacion.ValidarEntrada;
 
 import static cargarsintomas.utilitarios.OperacionSimple.caracRep;
 import static cargarsintomas.utilitarios.OperacionSimple.obtPor;

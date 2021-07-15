@@ -7,8 +7,6 @@ import monitor.Sintomas;
 
 import java.util.Date;
 
-import static cargarregistros.EncontrarRuta.encRuta;
-
 public class CargarRegistros {
 
     private final String RUTA_REG;
@@ -18,7 +16,8 @@ public class CargarRegistros {
 
     public CargarRegistros(Sintomas sints) {
         SINTOMAS = sints;
-        RUTA_REG = encRuta("cargarregistros","registros.dat");
+        //RUTA_REG = encRuta("cargarregistros","registros.dat");
+        RUTA_REG = "registros.dat";
         GestorRegistros gestor = new GestorRegistros(RUTA_REG);
         REGISTROS = gestor.getRegistrosArchivo();
         cargarRegistro();
@@ -30,5 +29,9 @@ public class CargarRegistros {
 
     public Registro getRegistro() {
         return (REGISTROS.isEmpty())? new Registro(new Date(), new Sintomas()) : REGISTROS.peek();
+    }
+
+    public Registros getRegistros() {
+        return REGISTROS;
     }
 }

@@ -1,4 +1,4 @@
-package cargarsintomas.guisintomas;
+package cargarsintomas.utilitarios;
 
 import monitor.Sintoma;
 import monitor.Sintomas;

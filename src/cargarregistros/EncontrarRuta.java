@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import static cargarregistros.guiregistros.Convertidor.obtExt;
-import static cargarregistros.guiregistros.Convertidor.caracRep;
+import static cargarregistros.utilitariosreg.Convertidor.obtExt;
+import static cargarregistros.utilitariosreg.Convertidor.caracRep;
 
 public final class EncontrarRuta {
 

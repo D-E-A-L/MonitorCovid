@@ -1,6 +1,8 @@
-package cargarsintomas.guisintomas;
+package cargarsintomas.utilitarios;
 
 import cargarsintomas.bd.LeerBD;
+import cargarsintomas.validacion.ComprobarLetras;
+import cargarsintomas.validacion.ComprobarSinonimos;
 
 import java.util.List;
 

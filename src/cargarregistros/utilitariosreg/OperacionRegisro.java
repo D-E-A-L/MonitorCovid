@@ -1,4 +1,4 @@
-package cargarregistros.guiregistros;
+package cargarregistros.utilitariosreg;
 
 import monitor.Registro;
 import monitor.Registros;
@@ -7,7 +7,7 @@ import monitor.Sintomas;
 
 import java.util.*;
 
-import static cargarregistros.guiregistros.Convertidor.*;
+import static cargarregistros.utilitariosreg.Convertidor.*;
 
 
 public class OperacionRegisro {

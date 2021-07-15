@@ -1,4 +1,4 @@
-package cargarsintomas.guisintomas;
+package cargarsintomas.validacion;
 
 import cargarsintomas.bd.LeerBD;
 

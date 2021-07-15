@@ -1,4 +1,4 @@
-package cargarsintomas.guisintomas;
+package cargarsintomas.validacion;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

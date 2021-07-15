@@ -2,6 +2,9 @@ package cargarsintomas.guisintomas;
 
 import cargarsintomas.GestorSintomas;
 import cargarsintomas.LeerSubClases;
+import cargarsintomas.utilitarios.OperacionSinonimos;
+import cargarsintomas.utilitarios.OperacionSintomas;
+import cargarsintomas.validacion.ValidarEntrada;
 import monitor.Sintoma;
 import monitor.Sintomas;
 

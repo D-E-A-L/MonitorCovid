@@ -14,8 +14,10 @@ public class CargarSintomas {
     private final String RUTA_HIJOS;
 
     public CargarSintomas() {
-        RUTA_SINTOMAS = encRuta("cargarsintomas","sintomas.dat");
-        RUTA_SINONIMOS = encRuta("cargarsintomas","sinonimos.csv");
+        //RUTA_SINTOMAS = encRuta("cargarsintomas","sintomas.dat");
+        RUTA_SINTOMAS = "sintomas.dat";
+        //RUTA_SINONIMOS = encRuta("cargarsintomas","sinonimos.csv");
+        RUTA_SINONIMOS = "./cargarsintomas/sinonimos.csv";
         RUTA_HIJOS = "sintomas";
         GESTOR = new GestorSintomas(RUTA_SINTOMAS,RUTA_HIJOS);
         registrarSintomas();

@@ -16,8 +16,9 @@ public final  class EncontrarRutaSintomas {
 
     public static String encRuta (String ruta, String aBuscar) {
         String res = "";
-        if(listArchCarp(ruta).size()> 0) {
+        if(!listArchCarp(ruta).equals(null)) {
             for(String cad: listArchCarp(ruta)) {
+                System.out.println("EncontraRutaSintomas test linea 19: "+cad);
                 if(cad.contains(aBuscar)) {
                     res = cad;
                 } else {
@@ -36,8 +37,9 @@ public final  class EncontrarRutaSintomas {
         String[] ee = miArch.list();
         List<String> listRes = new ArrayList<>();
         assert ee != null;
-        separarExt(ee);
-        for(String cad : separarExt(ee)) {
+        String[] str = separarExt(ee);
+        for(String cad : str) {
+            System.out.println("EncontraRutaSintomas test linea 39:" +cad);
             if(obtExt(cad).equals("csv") || (obtExt(cad).equals("dat"))) {
                 listRes.add(obtRutaPath(archCarp+SEPARADOR+cad));
             }
@@ -47,9 +49,12 @@ public final  class EncontrarRutaSintomas {
 
     private static String[] separarExt(String[] aux) {
         List<String> lres = new ArrayList<>();
-        for (String c: aux) {
-            if(caracRep(c,'.')==1) {
-                lres.add(c);
+        if(aux != null) {
+            for (String c: aux) {
+                if(caracRep(c,'.')==1) {
+                    lres.add(c);
+                    System.out.println("EncontraRutaSintomas test linea 50: " + c);
+                }
             }
         }
         return convertirList(lres);

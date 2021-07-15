@@ -1,14 +1,13 @@
-package cargarregistros.guiregistros;
+package cargarregistros.utilitariosreg;
 
 import monitor.Sintoma;
 import monitor.Sintomas;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public final class Convertidor {
 
@@ -88,5 +87,21 @@ public final class Convertidor {
             resI = (cad.charAt(i) == '.') ? resI+1: resI;
         }
         return resI;
+    }
+
+    public static String convDateString(Date date){
+        SimpleDateFormat sdatef = new SimpleDateFormat("yyyy/MM/dd");
+        return sdatef.format(date);
+    }
+
+    public static Date convStringDate(String fecha){
+        SimpleDateFormat sdatef = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = null;
+        try{
+            date = sdatef.parse(fecha);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }
