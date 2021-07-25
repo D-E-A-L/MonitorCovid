@@ -19,19 +19,10 @@ public class LeerSubClases {
         SEPARADOR = System.getProperty("file.separator");
     }
 
-    public List<String> listarHijos (String ncl, Class<?>  nuevaC) {
-        List<String> lisc = new ArrayList<>();
-        if(obtHijos(ncl,nuevaC) != null) {
-            for (String ncad: obtHijos(ncl,nuevaC)) {
-                lisc.add(obtExt(ncad));
-            }
-        }
-        return  lisc;
-    }
-
+    //region private methods
     private List<String> obtHijos (String ncl, Class<?>  nuevaC) {
         List<String> resL = new ArrayList<>();
-        for (String rs : listJavaClass(ncl) != null?listJavaClass(ncl): new ArrayList<String>()) {
+        for (String rs : listJavaClass(ncl) != null? listJavaClass(ncl): new ArrayList<String>()) {
             try {
                 Class<?> nClass = Class.forName(rs);
                 var nc = nClass.getSuperclass();
@@ -73,9 +64,7 @@ public class LeerSubClases {
     }
 
     private List<String>  pathJar(String ruta) {
-        //String[] aux1 = ruta.length() > 1 ? ruta.split(SEPARADOR): null;
-        //return ruta.length() == 1 ? pathJarOrigin("home"/*+ruta*/ + ".jar",ruta) : pathJarOrigin("home"/*+aux1 [aux1.length -1]*/ + ".jar", ruta);
-        return pathJarOrigin("home.jar",ruta);
+       return pathJarOrigin("home.jar",ruta);
     }
 
     private List<String> pathJarOrigin(String ruta, String vruta) {
@@ -83,16 +72,30 @@ public class LeerSubClases {
         ZipInputStream Zip;
         try {
             Zip = new ZipInputStream(new FileInputStream(ruta));
-            boolean res = false;
+            boolean res;
             for (ZipEntry entry = Zip.getNextEntry(); entry != null; entry = Zip.getNextEntry()) {
                 res = entry.getName().contains(vruta);
                 if (!entry.isDirectory() && res && entry.getName().endsWith(".class")) {
-                    String className = entry.getName().replace('/', '.');
-                    classNames.add(className.substring("sintomas.".length(), className.length()));
+                    String className = entry.getName().replace(SEPARADOR.charAt(0), '.');
+                    classNames.add(className.substring("sintomas.".length()));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         } return classNames;
     }
+    //endregion
+
+    //region public methods used in ConsolaRegistros
+    public List<String> listarHijos (String ncl, Class<?>  nuevaC) {
+        List<String> lisc = new ArrayList<>();
+        if(obtHijos(ncl,nuevaC) != null) {
+            for (String ncad: obtHijos(ncl,nuevaC)) {
+                lisc.add(obtExt(ncad));
+            }
+        }
+        return  lisc;
+    }
+    //endregion
+
 }

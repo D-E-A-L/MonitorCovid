@@ -9,6 +9,23 @@ import static cargarsintomas.utilitarios.OperacionSimple.obtExt;
 
 public final class OperacionMedia {
 
+    //region private methods
+    private static int existeIgualInt(String sintoma, List<List<String>> lSintomas) {
+        int i = 0;
+        if (lSintomas.size() > 0 ) {
+            for(List<String> lint: lSintomas) {
+                for(String nc : lint) {
+                    if(nc.equals(sintoma)) {
+                        i++;
+                    }
+                }
+            }
+        }
+        return i;
+    }
+    //endregion
+
+    //region public methods used in ConsolaSintomas
     public static String mostOpLista(List<?> lista) {
         StringBuilder rcad = new StringBuilder();
         for (int i = 0; i < lista.size(); i++) {
@@ -25,20 +42,6 @@ public final class OperacionMedia {
         return diccLista;
     }
 
-    public static int existeIgualInt(String sintoma, List<List<String>> lSintomas) {
-        int i = 0;
-        if (lSintomas.size() > 0 ) {
-            for(List<String> lint: lSintomas) {
-                for(String nc : lint) {
-                    if(nc.equals(sintoma)) {
-                        i++;
-                    }
-                }
-            }
-        }
-        return i;
-    }
-
     public static List<List<String>> noRepetido(List<List<String>> lsAux, List<List<String>> lSintomas) {
         for (List<String> aux : lsAux) {
             for (int b = 0; b < lSintomas.size(); b++) {
@@ -50,7 +53,9 @@ public final class OperacionMedia {
         }
         return lSintomas;
     }
+    //endregion
 
+    //region public methods used in OperacionSintomas
     public static List<List<String>> actDobleListDatos(String acSintoma, List<List<String>> dList) {
         List<List<String>> ndList = new ArrayList<>();
         if(existeIgualInt(acSintoma,dList) == 0) {
@@ -58,7 +63,9 @@ public final class OperacionMedia {
         }
         return ndList;
     }
+    //endregion
 
+    //region public methods used in OrdenarSintomasReg,OperacionSimple, Ordenar
     public static List<List<String>> converSintListD(Sintomas sintomas) {
         List<List<String>> listRes = new ArrayList<>();
         if(!sintomas.equals(null)) {
@@ -73,5 +80,6 @@ public final class OperacionMedia {
         }
         return listRes;
     }
+    //endregion
 
 }

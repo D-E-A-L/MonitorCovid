@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static cargarregistros.utilitariosreg.Convertidor.devolverSints;
+import static cargarregistros.utilitariosreg.ConvertidorReg.devolverSints;
 
 public class GestorRegistros {
 
@@ -20,6 +20,7 @@ public class GestorRegistros {
         hayArchReg();
     }
 
+    //region private methods
     private void hayArchReg() {
         File areg = new File(RUTA_REG);
         if (!areg.exists()) {
@@ -42,7 +43,9 @@ public class GestorRegistros {
 
         return registros;
     }
+    //endregion
 
+    //region public methods used in ConsolaRegistros
     public void guardarRegistro(List<List<String>> lSintomas) {
         Sintomas sintomas = devolverSints("sintomas",lSintomas);
         Registro registro;
@@ -62,5 +65,6 @@ public class GestorRegistros {
     public Registros getRegistrosArchivo() {
         return obtenerRegistros();
     }
+    //endregion
 
 }

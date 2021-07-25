@@ -3,32 +3,36 @@ package cargarregistros.utilitariosreg;
 import monitor.Sintoma;
 import monitor.Sintomas;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public final class ConvertidorRegistros {
+public final class OpeSimpReg {
 
+    //region private methods
+    private static String limpiar(String cad){
+        return cad.contains("-->")? cad.split("-->")[1]:cad;
+    }
+
+    private static int caracRep(String cad, char carBuscar){
+        int resI = 0;
+        for (int i = 0; i < cad.length(); i++) {
+            resI = (cad.charAt(i) == carBuscar) ? resI+1: resI;
+        }
+        return resI;
+    }
+    //endregion
+
+    //region public methods used in OpeMedReg
     public static  Map<String, Boolean> aDiccEstado (List<List<String>> lsint) {
         Map<String, Boolean> dest = new HashMap<>();
-        if(lsint.size() >= 0) {
+        if(lsint != null) {
             for(List<String> list : lsint) {
                 dest.put(list.get(0)+"-->"+list.get(list.size()-1), false);
             }
         }
         return dest;
-    }
-
-    public static Map<String,String> diccList(List<List<String>> nlist) {
-        Map<String,String> ls = new HashMap<>();
-        for(List<String> l: nlist) {
-            ls.put(limpiar(l.get(l.size()-1)),l.get(0));
-        } return ls;
-    }
-
-    private static String limpiar(String cad){
-        return cad.contains("-->")? cad.split("-->")[1]:cad;
     }
 
     public static  Map<Integer, String> aDiccOpciones (List<List<String>> lSint) {
@@ -51,28 +55,18 @@ public final class ConvertidorRegistros {
         }
         return lsn;
     }
+    //endregion
 
-    public static Sintomas devolverSints (String paquete, List<List<String>> lsint) {
-        Sintomas sintomas = new Sintomas();
-        for(List<String> ls: lsint) {
-            sintomas = devSintomas(paquete,ls.get(0),ls.get(1),sintomas);
-        }
-        return sintomas;
+    //region public methods used in ConsolaRegistros
+    public static Map<String,String> diccList(List<List<String>> nlist) {
+        Map<String,String> ls = new HashMap<>();
+        for(List<String> l: nlist) {
+            ls.put(limpiar(l.get(l.size()-1)),l.get(0));
+        } return ls;
     }
+    //endregion
 
-    private static Sintomas devSintomas(String paquete, String tipo, String nombreSintoma, Sintomas sintomas){
-        Sintoma sintoma = null;
-        try {
-            Class<?> cl = Class.forName(paquete + "." + tipo);
-            Constructor<?> constructor = cl.getConstructor(String.class);
-            sintoma = (Sintoma)constructor.newInstance(nombreSintoma);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        sintomas.add(sintoma);
-        return sintomas;
-    }
-
+    //region public methods OpeSinpReg, OrdenarSintomasReg
     public static String obtExt(String rutaAr){
         String[] arrCad = null;
         if(caracRep(rutaAr,'.') > 0) {
@@ -82,17 +76,6 @@ public final class ConvertidorRegistros {
         assert arrCad != null;
         return arrCad[1];
     }
+    //endregion
 
-    public static int caracRep(String cad, char carBuscar){
-        int resI = 0;
-        for (int i = 0; i < cad.length(); i++) {
-            resI = (cad.charAt(i) == carBuscar) ? resI+1: resI;
-        }
-        return resI;
-    }
-
-    public static String convDateString(Date date){
-        SimpleDateFormat sdatef = new SimpleDateFormat("yyy/MM/dd");
-        return sdatef.format(date);
-    }
 }

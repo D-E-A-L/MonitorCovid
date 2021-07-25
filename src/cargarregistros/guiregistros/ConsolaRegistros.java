@@ -1,7 +1,7 @@
 package cargarregistros.guiregistros;
 
 import cargarregistros.GestorRegistros;
-import cargarregistros.utilitariosreg.OperacionRegisro;
+import cargarregistros.utilitariosreg.OpeMedReg;
 import monitor.Registros;
 import monitor.Sintomas;
 
@@ -9,20 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static cargarregistros.utilitariosreg.ConvertidorReg.regHoy;
+import static cargarregistros.utilitariosreg.OrdenarSintomasReg.ordAlf;
+import static cargarregistros.utilitariosreg.OrdenarSintomasReg.ordPorCat;
+
 public class ConsolaRegistros {
 
-    private final OperacionRegisro OPR;
+    private final OpeMedReg OPR;
 
     private final List<List<String>> LISST_SINT_REG;
 
     private final GestorRegistros GESTOR;
     private final Registros REGS;
 
+    private final Sintomas SINTOMAS;
+
     public ConsolaRegistros(String ruta_reg, Sintomas sintomas){
-        OPR = new OperacionRegisro(sintomas);
+        OPR = new OpeMedReg(sintomas);
         GESTOR = new GestorRegistros(ruta_reg);
         LISST_SINT_REG = new ArrayList<>();
         REGS = GESTOR.getRegistrosArchivo();
+        SINTOMAS = sintomas;
         registrarRegistros();
     }
 
@@ -39,14 +46,43 @@ public class ConsolaRegistros {
         int opc;
         boolean rb = true;
         while(rb) {
-            System.out.println("0.- Realizar registro; 1.- Salir");
+            System.out.println("0.- Realizar registro; 1.- Ordenar; 2.- Salir");
             opc = sc.nextInt();
             switch (opc) {
                 case 0 -> {
                     OPR.restablecer();
-                    mostrarOpciones();
+                    if(!regHoy(GESTOR.getRegistrosArchivo())) {
+                        mostrarOpciones();
+                    } else {
+                        System.out.println("Ya se registro, no puede volver a registrar por hoy");
+                    }
+
                 }
-                case 1 -> rb = false;
+                case 1 -> ordenar();
+                case 2 -> rb = false;
+            }
+        }
+    }
+
+    private void ordenar(){
+        Scanner sc = new Scanner(System.in);
+        int opc;
+        boolean rbl = true;
+        while(rbl) {
+            System.out.println("0.- Orden por categoria; 1.- Orden Alfabetico; 2.- Salir");
+            opc = sc.nextInt();
+            switch (opc) {
+                case 0 -> {
+                    OPR.modificarSintomasOrd(ordPorCat(SINTOMAS));
+                    System.out.println("cambio de orden correcto");
+                    System.out.println(OPR.mostOpc1());
+                }
+                case 1 -> {
+                    OPR.modificarSintomasOrd(ordAlf(SINTOMAS));
+                    System.out.println("cambio de orden correcto");
+                    System.out.println(OPR.mostOpc1());
+                }
+                case 2 -> rbl = false;
             }
         }
     }

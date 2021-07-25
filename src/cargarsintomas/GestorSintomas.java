@@ -21,6 +21,7 @@ public class GestorSintomas {
         hayArchivo();
     }
 
+    //region private methods
     private void hayArchivo() {
         File archSintomas = new File(RUTA_ARCHIVO);
         if (!archSintomas.exists()) {
@@ -43,18 +44,6 @@ public class GestorSintomas {
         return sintomas;
     }
 
-    public Sintomas getSintomasArchivo(){
-        return obtenerDatos(RUTA_ARCHIVO);
-    }
-
-    public void escribir(List<List<String>> datos) {
-        for(List<String> ncad : datos) {
-            if(ncad.size() > 0) {
-                guardar(ncad.get(0),ncad.get(1));
-            }
-        }
-    }
-
     private void guardar(String tipo, String nombreSintoma) {
         Sintoma sintoma;
         ObjectOutputStream salida;
@@ -70,4 +59,21 @@ public class GestorSintomas {
             e.printStackTrace();
         }
     }
+    //endregion
+
+    //region public methods used in CargarSintomas
+    public Sintomas getSintomasArchivo(){
+        return obtenerDatos(RUTA_ARCHIVO);
+    }
+    //endregion
+
+    //region public methods used in ConsolaSintoma
+    public void escribir(List<List<String>> datos) {
+        for(List<String> ncad : datos) {
+            if(ncad.size() > 0) {
+                guardar(ncad.get(0),ncad.get(1));
+            }
+        }
+    }
+    //endregion
 }

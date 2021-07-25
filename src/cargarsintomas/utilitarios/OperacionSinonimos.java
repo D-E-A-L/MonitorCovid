@@ -20,19 +20,8 @@ public class OperacionSinonimos {
         COMPS = new ComprobarSinonimos(ruta);
     }
 
-    public boolean empate(String sintoma, List<List<String>> lisd)  {
-        boolean rband = false;
-        List<String> lr = COMPS.obtListaSino(prediccionPalabra(sintoma));
-        if(concuerda(lisd,lr)){
-            rband = true;
-        } return rband;
-    }
-
-    public List<List<String>> getSinonimos() {
-        return SINONIMOS;
-    }
-
-    private boolean concuerda (List<List<String>> dl, List<String> sinonimos) {
+    //region private methods
+    private boolean concuerda(List<List<String>> dl, List<String> sinonimos) {
         boolean rbool = false;
         for(String sc: sinonimos) {
             for(List<String> lsim : dl) {
@@ -51,7 +40,7 @@ public class OperacionSinonimos {
         return  rbool;
     }
 
-    public String prediccionPalabra(String orig) {
+    private String prediccionPalabra(String orig) {
         String rcad ="";
         boolean bandera = false;
         for(List<String> ls : SINONIMOS) {
@@ -64,4 +53,16 @@ public class OperacionSinonimos {
             }
         } return rcad;
     }
+    //endregion
+
+    //region public methods ConsolaSintomas
+    public boolean empate(String sintoma, List<List<String>> lisd)  {
+        boolean rband = false;
+        List<String> lr = COMPS.obtListaSino(prediccionPalabra(sintoma));
+        if(concuerda(lisd,lr)){
+            rband = true;
+        } return rband;
+    }
+    //endregion
+
 }

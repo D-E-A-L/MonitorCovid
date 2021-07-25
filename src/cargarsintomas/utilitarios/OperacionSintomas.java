@@ -14,12 +14,12 @@ public class OperacionSintomas {
     public OperacionSintomas() {
     }
 
+    //region public methods used in ConsolaSintoma
     public List<List<String>> aDobleListaString(Sintomas sintomas) {
         List<List<String>> dList = new ArrayList<>();
         for(Sintoma sintoma: sintomas) {
             List<String> nList = new ArrayList<>();
             nList.add(obtExt(String.valueOf(sintoma.getClass())));
-            //nList.add(sintoma.getNombre());
             nList.add(sintoma.toString());
             dList.add(nList);
         }
@@ -34,5 +34,5 @@ public class OperacionSintomas {
         dobleListSint.add(lsa);
         return dobleListSint;
     }
-
+    //endregion
 }

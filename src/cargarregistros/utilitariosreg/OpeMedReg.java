@@ -5,12 +5,14 @@ import monitor.Registros;
 import monitor.Sintoma;
 import monitor.Sintomas;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
-import static cargarregistros.utilitariosreg.ConvertidorRegistros.*;
+import static cargarregistros.utilitariosreg.OpeSimpReg.*;
 
 
-public class OperacionRegisro {
+public class OpeMedReg {
 
     private final Map<Integer,String> ORD_EST;
     private final Map<String, String> GET_LIST;
@@ -20,7 +22,7 @@ public class OperacionRegisro {
 
     private Sintomas sintomas;
 
-    public OperacionRegisro(Sintomas sint) {
+    public OpeMedReg(Sintomas sint) {
         sintomas = sint;
         LIST_SINT = convertirSintAList(sintomas);
         ORD_EST = aDiccOpciones(LIST_SINT);
@@ -28,28 +30,51 @@ public class OperacionRegisro {
         GET_LIST = diccList(LIST_SINT);
     }
 
-    public String mostrarRegistros(Registros registros){
-        String res = "";
-        for(Registro registro: registros) {
-            if(res.equals("") || res.equals(null) ) {
-                res = registro.getFecha() +"-->"+ converStringSintomas(registro.getSintomas());
-            } else {
-                res = res + registro.getFecha() +"-->"+ converStringSintomas(registro.getSintomas());
-            }
-        }
-        return res;
+    //region private methods
+    public void modificarSintomasOrd(Sintomas sins) {
+        sintomas = sins;
+    }
+
+    private String obtSint(int opc) {
+        return  ORD_EST.get(opc);
+    }
+
+    private String limpiar(String cad, String carac) {
+        return cad.contains(carac) ? cad.split(carac)[1] : cad;
+    }
+
+    private void actDicEst(String cad) {
+        est_sint.put(cad,true);
     }
 
     private String converStringSintomas(Sintomas sintomas) {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for(Sintoma sintoma: sintomas) {
-            if(!res.equals("")){
-                res = res + "; "+sintoma.toString();
+            if(!res.toString().equals("")){
+                res.append("; ").append(sintoma.toString());
             } else {
-                res = res + sintoma.toString();
+                res.append(sintoma.toString());
             }
-        } res = res + "\n";
-        return res;
+        } res.append("\n");
+        return res.toString();
+    }
+    //endregion
+
+    //region public methods used in ConsolaRegistros
+    public int tamSintomas() {
+        return ORD_EST.size();
+    }
+
+    public void restablecer(){
+        est_sint = aDiccEstado(LIST_SINT);
+    }
+
+    public String mostrarRegistros(Registros registros){
+        StringBuilder res = new StringBuilder();
+        for(Registro registro: registros) {
+            res.append(registro.getFecha()).append("-->").append(converStringSintomas(registro.getSintomas()));
+        }
+        return res.toString();
     }
 
     public String mostOpc(){
@@ -81,13 +106,6 @@ public class OperacionRegisro {
         } return cad.toString();
     }
 
-
-    public void actDicEst(String cad) {
-        est_sint.put(cad,true);
-    }
-
-    public int tamSintomas() {return ORD_EST.size();}
-
     public List<String> obtTipoSint(int opc) {
         List<String> lsint = new ArrayList<>();
         lsint.add(GET_LIST.get(limpiar(obtSint(opc),"-->")));
@@ -95,21 +113,6 @@ public class OperacionRegisro {
         actDicEst(obtSint(opc));
         return lsint;
     }
-
-    private String limpiar(String cad, String carac) {
-        return cad.contains(carac) ? cad.split(carac)[1] : cad;
-    }
-
-    public void restablecer(){
-        est_sint = aDiccEstado(LIST_SINT);
-    }
-
-    private String obtSint(int opc) {
-        return  ORD_EST.get(opc);
-    }
-
-    public void modificarSintomasOrd(Sintomas sins) {
-        sintomas = sins;
-    }
+    //endregion
 
 }

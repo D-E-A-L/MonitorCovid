@@ -16,17 +16,19 @@ public class CargarRegistros {
 
     public CargarRegistros(Sintomas sints) {
         SINTOMAS = sints;
-        //RUTA_REG = encRuta("cargarregistros","registros.dat");
         RUTA_REG = "registros.dat";
         GestorRegistros gestor = new GestorRegistros(RUTA_REG);
         REGISTROS = gestor.getRegistrosArchivo();
         cargarRegistro();
     }
 
+    //region private methods
     private void cargarRegistro() {
             new ConsolaRegistros(RUTA_REG, SINTOMAS);
     }
+    //endregion
 
+    //region public methods used in Monitor
     public Registro getRegistro() {
         return (REGISTROS.isEmpty())? new Registro(new Date(), new Sintomas()) : REGISTROS.peek();
     }
@@ -34,4 +36,5 @@ public class CargarRegistros {
     public Registros getRegistros() {
         return REGISTROS;
     }
+    //endregion
 }

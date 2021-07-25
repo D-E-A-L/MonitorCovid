@@ -6,6 +6,7 @@ public class Fase implements Serializable {
 
     private String nombre;
     private int dia;
+
     public Fase(String nombre){
         this.nombre = nombre;
         dia = 0;

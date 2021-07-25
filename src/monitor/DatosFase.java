@@ -4,6 +4,7 @@ import java.io.*;
 
 public class DatosFase {
 
+    //region private methods
     private String getPath(){
         File miDir = new File (".");
         String dir="", path, separador = System.getProperty("file.separator");
@@ -26,15 +27,22 @@ public class DatosFase {
             }
         }
 
-        String nombreArchivo = "fase.dat";
+        String rutArch = "fase.dat";
         if ( !esDesarrollo ){
-            path = dir+separador+  nombreArchivo;
+            path = dir+separador+  rutArch;
         } else {
-            path = dir+separador+"src"+separador+  nombreArchivo;
+            path = dir+separador+"src"+separador+  rutArch;
         }
         return path;
     }
 
+    private boolean existeDatosFase(){
+        File f = new File(getPath());
+        return f.exists();
+    }
+    //endregion
+
+    //region public methods used in DiagnosticoPorFase, Monitor
     public Fase leerDatosFase() {
         Fase fase = null;
         try {
@@ -45,17 +53,11 @@ public class DatosFase {
             } else {
                 fase = new Fase("PrimeraFase");
             }
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e){
+        } catch (ClassNotFoundException | IOException e){
+
             e.printStackTrace();
         }
         return fase;
-    }
-
-    public boolean existeDatosFase(){
-        File f = new File(getPath());
-        return f.exists();
     }
 
     public void guardarDatosFase(Fase fase){
@@ -67,4 +69,6 @@ public class DatosFase {
             e.printStackTrace();
         }
     }
+    //endregion
+
 }

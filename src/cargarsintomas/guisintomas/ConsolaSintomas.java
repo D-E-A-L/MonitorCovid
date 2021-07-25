@@ -1,5 +1,9 @@
 package cargarsintomas.guisintomas;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
 import cargarsintomas.GestorSintomas;
 import cargarsintomas.LeerSubClases;
 import cargarsintomas.utilitarios.OperacionSinonimos;
@@ -8,12 +12,13 @@ import cargarsintomas.validacion.ValidarEntrada;
 import monitor.Sintoma;
 import monitor.Sintomas;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import static cargarsintomas.utilitarios.OperacionMedia.*;
-import static cargarsintomas.utilitarios.OperacionSimple.*;
+import static cargarsintomas.utilitarios.OperacionMedia.dicIntString;
+import static cargarsintomas.utilitarios.OperacionMedia.mostOpLista;
+import static cargarsintomas.utilitarios.OperacionMedia.noRepetido;
+import static cargarsintomas.utilitarios.OperacionSimple.mostSintReg;
+import static cargarsintomas.utilitarios.OperacionSimple.mostListDatos;
+import static cargarsintomas.utilitarios.Ordenar.ordAlf;
+import static cargarsintomas.utilitarios.Ordenar.ordPorCat;
 
 public class ConsolaSintomas {
 
@@ -27,7 +32,6 @@ public class ConsolaSintomas {
     private final Map<Integer,String> DICCLISTHIJOS;
 
     private List<List<String>> dobleListSint;
-    private List<List<String>> dListSinonimos;
     private boolean rbool;
 
     public ConsolaSintomas(String rSint, String rSino, String rHijos){
@@ -41,8 +45,26 @@ public class ConsolaSintomas {
         DICCLISTHIJOS = dicIntString(LISTAHIJOS);
         dobleListSint = OPSINT.aDobleListaString(SINTOMAS);
         rbool = true;
-        dListSinonimos = OPALT.getSinonimos();
-        mostrarTipoSint();
+        mostNuevaOpc();
+    }
+
+    private void mostNuevaOpc(){
+        System.out.println("\nMENU SINTOMAS\n");
+        Scanner sc = new Scanner(System.in);
+        int n;
+        while(rbool) {
+            System.out.println("0.- Mostrar sintomas; 1.- Registrar nuevo sintoma; 2.- Orden para mostrar; 3.- Salir");
+            n = sc.nextInt();
+            switch (n){
+                case 0 -> System.out.println(mostSintReg(SINTOMAS));
+                case 1 -> mostrarTipoSint();
+                case 2 -> ordenar();
+                case 3 -> {
+                    System.out.println("Gracias por confiar en nosostros");
+                    rbool = false;
+                }
+            }
+        }
     }
 
     private void mostrarTipoSint() {
@@ -95,13 +117,35 @@ public class ConsolaSintomas {
         }
     }
 
-    public void registrarSintoma() {
+    private void ordenar(){
+        Sintomas sint;
+        Scanner sc = new Scanner(System.in);
+        int opc;
+        boolean rbl = true;
+        while(rbl) {
+            System.out.println(mostSintReg(SINTOMAS));
+            System.out.println("\n0.- Orden por categoria; 1.- Orden Alfabetico; 2.- Salir\n");
+            opc = sc.nextInt();
+            switch (opc) {
+                case 0 -> {
+                    sint = ordPorCat(SINTOMAS);
+                    System.out.println("cambio de orden correcto");
+                    System.out.println(mostSintReg(sint));
+                }
+                case 1 -> {
+                    sint = ordAlf(SINTOMAS);
+                    System.out.println("cambio de orden correcto");
+                    System.out.println(mostSintReg(sint));
+                }
+                case 2 -> rbl = false;
+            }
+        }
+    }
+
+    private void registrarSintoma() {
         List<List<String>> nlist = OPSINT.aDobleListaString(SINTOMAS);
         dobleListSint = noRepetido(nlist,dobleListSint);
         GESTOR_SINTOMAS.escribir(dobleListSint);
         System.out.println(mostSintReg(SINTOMAS));
-        /*for(Sintoma s : GESTOR_SINTOMAS.getSintomasArchivo()) {
-            System.out.println(obtExt(""+s.getClass())+"-->"+s.toString());
-        }*/
     }
 }
