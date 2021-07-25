@@ -7,7 +7,7 @@ import monitor.Sintomas;
 
 import java.util.*;
 
-import static cargarregistros.utilitariosreg.Convertidor.*;
+import static cargarregistros.utilitariosreg.ConvertidorRegistros.*;
 
 
 public class OperacionRegisro {
@@ -18,7 +18,10 @@ public class OperacionRegisro {
 
     private  Map<String,Boolean> est_sint;
 
-    public OperacionRegisro(Sintomas sintomas) {
+    private Sintomas sintomas;
+
+    public OperacionRegisro(Sintomas sint) {
+        sintomas = sint;
         LIST_SINT = convertirSintAList(sintomas);
         ORD_EST = aDiccOpciones(LIST_SINT);
         est_sint = aDiccEstado(LIST_SINT);
@@ -55,12 +58,26 @@ public class OperacionRegisro {
             for(int i = 0; i < ORD_EST.size(); i++) {
                 if(!est_sint.get(ORD_EST.get(i))) {
                     cad.append(i).append(".- ").append(ORD_EST.get(i)).append("; ");
-                    if(i % 5 == 0 && i > 0) {
+                    if(i % 3 == 0 && i > 0) {
                         cad.append("\n");
                     }
                 }
             }
             cad.append("\n").append(est_sint.size()).append(".- REGISTRAR");
+        } return cad.toString();
+    }
+
+    public String mostOpc1(){
+        StringBuilder cad = new StringBuilder();
+        if(ORD_EST != null) {
+            for(int i = 0; i < ORD_EST.size(); i++) {
+                if(!est_sint.get(ORD_EST.get(i))) {
+                    cad.append(i).append(".- ").append(ORD_EST.get(i)).append("; ");
+                    if(i % 3 == 0 && i > 0) {
+                        cad.append("\n");
+                    }
+                }
+            }
         } return cad.toString();
     }
 
@@ -73,10 +90,14 @@ public class OperacionRegisro {
 
     public List<String> obtTipoSint(int opc) {
         List<String> lsint = new ArrayList<>();
-        lsint.add(GET_LIST.get(obtSint(opc)));
-        lsint.add(obtSint(opc));
+        lsint.add(GET_LIST.get(limpiar(obtSint(opc),"-->")));
+        lsint.add(limpiar(obtSint(opc),"-->"));
         actDicEst(obtSint(opc));
         return lsint;
+    }
+
+    private String limpiar(String cad, String carac) {
+        return cad.contains(carac) ? cad.split(carac)[1] : cad;
     }
 
     public void restablecer(){
@@ -84,7 +105,11 @@ public class OperacionRegisro {
     }
 
     private String obtSint(int opc) {
-        return ORD_EST.get(opc);
+        return  ORD_EST.get(opc);
+    }
+
+    public void modificarSintomasOrd(Sintomas sins) {
+        sintomas = sins;
     }
 
 }

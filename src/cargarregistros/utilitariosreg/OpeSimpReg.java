@@ -5,17 +5,16 @@ import monitor.Sintomas;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public final class Convertidor {
+public final class ConvertidorRegistros {
 
     public static  Map<String, Boolean> aDiccEstado (List<List<String>> lsint) {
         Map<String, Boolean> dest = new HashMap<>();
         if(lsint.size() >= 0) {
-            for(List<String> lst : lsint) {
-                dest.put(lst.get(lst.size()-1), false);
+            for(List<String> list : lsint) {
+                dest.put(list.get(0)+"-->"+list.get(list.size()-1), false);
             }
         }
         return dest;
@@ -24,15 +23,19 @@ public final class Convertidor {
     public static Map<String,String> diccList(List<List<String>> nlist) {
         Map<String,String> ls = new HashMap<>();
         for(List<String> l: nlist) {
-            ls.put(l.get(l.size()-1),l.get(0));
+            ls.put(limpiar(l.get(l.size()-1)),l.get(0));
         } return ls;
+    }
+
+    private static String limpiar(String cad){
+        return cad.contains("-->")? cad.split("-->")[1]:cad;
     }
 
     public static  Map<Integer, String> aDiccOpciones (List<List<String>> lSint) {
         Map<Integer, String> dsint = new HashMap<>();
         int index = 0;
         for(List<String> ls: lSint) {
-            dsint.put(index, ls.get(ls.size()-1));
+            dsint.put(index, ls.get(0) +"-->"+ls.get(ls.size()-1));
             index++;
         }
         return dsint;
@@ -43,7 +46,6 @@ public final class Convertidor {
         for(Sintoma sint: sintomas){
             List<String> lsint = new ArrayList<>();
             lsint.add(obtExt(String.valueOf(sint.getClass())));
-            //lsint.add(sint.getNombre());
             lsint.add(sint.toString());
             lsn.add(lsint);
         }
@@ -73,7 +75,7 @@ public final class Convertidor {
 
     public static String obtExt(String rutaAr){
         String[] arrCad = null;
-        if(caracRep(rutaAr) > 0) {
+        if(caracRep(rutaAr,'.') > 0) {
             rutaAr = rutaAr.replace('.',',');
             arrCad = rutaAr.split(",");
         }
@@ -81,27 +83,16 @@ public final class Convertidor {
         return arrCad[1];
     }
 
-    public static int caracRep(String cad){
+    public static int caracRep(String cad, char carBuscar){
         int resI = 0;
         for (int i = 0; i < cad.length(); i++) {
-            resI = (cad.charAt(i) == '.') ? resI+1: resI;
+            resI = (cad.charAt(i) == carBuscar) ? resI+1: resI;
         }
         return resI;
     }
 
     public static String convDateString(Date date){
-        SimpleDateFormat sdatef = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdatef = new SimpleDateFormat("yyy/MM/dd");
         return sdatef.format(date);
-    }
-
-    public static Date convStringDate(String fecha){
-        SimpleDateFormat sdatef = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = null;
-        try{
-            date = sdatef.parse(fecha);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 }
